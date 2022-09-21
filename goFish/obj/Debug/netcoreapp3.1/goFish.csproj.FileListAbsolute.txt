@@ -1,0 +1,14 @@
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.csproj.AssemblyReference.cache
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.AssemblyInfoInputs.cache
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.AssemblyInfo.cs
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.csproj.CoreCompileInputs.cache
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.exe
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.deps.json
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.runtimeconfig.json
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.runtimeconfig.dev.json
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.dll
+C:\Users\emil.wallman\source\repos\goFish\bin\Debug\netcoreapp3.1\goFish.pdb
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.dll
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.pdb
+C:\Users\emil.wallman\source\repos\goFish\obj\Debug\netcoreapp3.1\goFish.genruntimeconfig.cache
