@@ -10,17 +10,43 @@ namespace goFish
     {
         static void Main(string[] args)
         {
+            //values
+
+
+
             //Start question
             bool start = startYN();
 
             //Start if loop (the whole game)
             if (start == true)
             {
+                //making a deck of cards
                 List<int> cardsValue = CV();
                 List<string> cardsName = CN();
                 List<int> cardNum = cardN();
-                Console.WriteLine("bög");
+                
+                //for player and computer
+                List<int> hand = new List<int> { };
+                List<int> computerHand = new List<int> { };
 
+                //Dealing cards
+                for(int i = 0; i < 7; i++)
+                {
+                    hand = dealer(cardNum, hand);
+                    cardNum.Remove(hand[i]);
+
+                    computerHand = dealer(cardNum, computerHand);
+                    cardNum.Remove(computerHand[i]);
+                }
+                bool game = true;
+
+                while (game == true)
+                {
+
+
+
+
+                }
 
             }
 
@@ -30,6 +56,24 @@ namespace goFish
                 Console.WriteLine("Oh... Okay... Bye then :(");
             }
         }
+
+        //UI
+        static void ui()
+        {
+            Console.Clear();
+            Console.WriteLine("===================================================================================================================================================================================================");
+
+            Console.WriteLine("                                ==============");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                |            |");
+            Console.WriteLine("                                ==============");
+        }
+
 
         //start question
         static bool startYN()
@@ -118,6 +162,7 @@ namespace goFish
             return name;
         }
 
+        //numbers 1-52
         static List<int> cardN()
         {
             List<int> cardNum = new List<int>();
@@ -130,6 +175,23 @@ namespace goFish
             return cardNum;
         }
 
-        
+        //random
+        static int rnd(List<int> numbers)
+        {
+            Random rnd = new Random();
+            int randomEfx = rnd.Next(0, numbers.Count);
+
+            return randomEfx;
+        }
+
+        static List<int> dealer(List<int> numbers, List<int> hand)
+        {
+            int random = rnd(numbers);
+            int number = numbers[random];
+            hand.Add(number);
+
+            return hand;
+        }
+
     }
 }
