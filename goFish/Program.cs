@@ -21,8 +21,8 @@ namespace goFish
             if (start == true)
             {
                 //making a deck of cards
-                List<int> cardsValue = CV();
-                List<string> cardsName = CN();
+                List<int> cardValue = CV();
+                List<string> cardColour = CC();
                 List<int> cardNum = cardN();
                 
                 //for player and computer
@@ -42,7 +42,30 @@ namespace goFish
 
                 while (game == true)
                 {
+                    //1 is player turn 2 is computer
+                    int cp = 1;
 
+                    if (cp == 1)
+                    {
+
+                        ui(hand, computerHand, cardNum, cardValue, cardColour, cp);
+
+                        int answer = Convert.ToInt32(Console.ReadLine());
+
+                        for (int i = 0; i < computerHand.Count; i++)
+                        {
+                            if (cardValue[hand[answer - 1]] == cardValue[computerHand[i]])
+                            {
+                                Console.WriteLine("bög");
+                            }
+                        }
+
+                    }
+
+                    if (cp == 2)
+                    {
+
+                    }
 
 
 
@@ -58,20 +81,49 @@ namespace goFish
         }
 
         //UI
-        static void ui()
+        static void ui(List<int> hand, List<int> compterHand, List<int> cardNum, List<int> cardValue, List<string> cardColour, int cp)
         {
-            Console.Clear();
-            Console.WriteLine("===================================================================================================================================================================================================");
+            hand.Sort();
+            compterHand.Sort();
 
-            Console.WriteLine("                                ==============");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                |            |");
-            Console.WriteLine("                                ==============");
+
+            Console.Clear();
+            Console.WriteLine("==================================================================================================================");
+            Console.WriteLine("");
+            Console.WriteLine("==============");
+            Console.WriteLine(" Your cards:");
+            for(int i = 0; i < hand.Count; i++)
+            {
+                switch (cardValue[hand[i]])
+                {
+                    case 11:
+                        Console.WriteLine((i + 1) + ") "  + cardColour[hand[i]] + "  " + "Jack");
+                        break;
+                    case 12:
+                        Console.WriteLine((i + 1) + ") " + cardColour[hand[i]] + "  " + "Queen");
+                        break;
+                    case 13:
+                        Console.WriteLine((i + 1) + ") " + cardColour[hand[i]] + "  " + "King");
+                        break;
+
+                    default:
+                        Console.WriteLine((i + 1) + ") "  + cardColour[hand[i]] + "  " + cardValue[hand[i]]);
+                        continue;
+                }
+
+                
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            if (cp == 1)
+            {
+                Console.WriteLine("Ask the computer for a card");
+            }
+
+
+
+
         }
 
 
@@ -130,11 +182,11 @@ namespace goFish
 
         }
 
-        //For names
-        static List<string> CN()
+        //For colours
+        static List<string> CC()
         {
             List<string> name = new List<string>();
-            List<string> CName = new List<string>() {"Spades", "Diamonds", "Hearts", "Clubs" };
+            List<string> CName = new List<string>() {"Spades    ", "Diamonds  ", "Hearts    ", "Clubs     " };
             int i = 1;
             int x = 0;
             int y = 0;
