@@ -29,8 +29,16 @@ namespace goFish
                 List<int> hand = new List<int> { };
                 List<int> computerHand = new List<int> { };
 
+                //For game
+
+                //if the question was succesfull or nah
+                int work = 0;
+
+                //1 is player turn 2 is computer
+                int cp = 1;
+
                 //Dealing cards
-                for(int i = 0; i < 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     hand = dealer(cardNum, hand);
                     cardNum.Remove(hand[i]);
@@ -42,21 +50,41 @@ namespace goFish
 
                 while (game == true)
                 {
-                    //1 is player turn 2 is computer
-                    int cp = 1;
+                    
 
                     if (cp == 1)
                     {
 
-                        ui(hand, computerHand, cardNum, cardValue, cardColour, cp);
+                        ui(hand, computerHand, cardNum, cardValue, cardColour, cp, work);
 
                         int answer = Convert.ToInt32(Console.ReadLine());
-
+                        int j = 0;
                         for (int i = 0; i < computerHand.Count; i++)
                         {
                             if (cardValue[hand[answer - 1]] == cardValue[computerHand[i]])
                             {
-                                Console.WriteLine("bög");
+                                int taker = computerHand[i];
+                                hand.Add(taker);
+                                computerHand.RemoveAt(i);
+                                
+                                
+                                
+                                work = 1;
+                                ui(hand, computerHand, cardNum, cardValue, cardColour, cp, work);
+                                work = 0;
+
+                                i = 0;
+                            }
+
+                            else
+                            {
+                                
+                                j++;
+                                if (j == computerHand.Count)
+                                {
+                                    i = computerHand.Count;
+                                    cp = 2;
+                                }
                             }
                         }
 
@@ -64,7 +92,40 @@ namespace goFish
 
                     if (cp == 2)
                     {
+                        //Find if there is any douplicates of cards
 
+
+                        // This is cursed
+                        for (int i = 0; i < computerHand.Count; i++)
+                        {
+                            for(int k = 0; k < computerHand.Count; k++)
+                            {
+                                
+                                //See if there are tow cards
+                                if (cardValue[computerHand[i]] == cardValue[computerHand[k]])
+                                {
+                                    Console.WriteLine(cardValue[computerHand[i]] + "im");
+                                    Console.WriteLine(cardValue[computerHand[k]] + "km");
+                                    Console.WriteLine(i + "i");
+                                    Console.WriteLine(k + "k");
+
+                                    /*
+                                    for (int m = 0; m < computerHand.Count; m++)
+                                    {
+                                        //three cards
+                                        if (cardValue[computerHand[i]] == cardValue[computerHand[m]])
+                                        {
+                                            Console.WriteLine(cardValue[i]);
+                                            Console.WriteLine(cardValue[k]);
+                                            Console.WriteLine(cardValue[m]);
+                                        }
+                                    }*/
+                                }
+                            }
+                        }
+
+
+                        //any tripplets?
                     }
 
 
@@ -81,10 +142,10 @@ namespace goFish
         }
 
         //UI
-        static void ui(List<int> hand, List<int> compterHand, List<int> cardNum, List<int> cardValue, List<string> cardColour, int cp)
+        static void ui(List<int> hand, List<int> computerHand, List<int> cardNum, List<int> cardValue, List<string> cardColour, int cp, int work)
         {
             hand.Sort();
-            compterHand.Sort();
+            computerHand.Sort();
 
 
             Console.Clear();
@@ -114,6 +175,32 @@ namespace goFish
                 
             }
 
+
+            //For testing
+            for (int i = 0; i < computerHand.Count; i++)
+            {
+                switch (cardValue[computerHand[i]])
+                {
+                    case 11:
+                        Console.WriteLine((i + 1) + ") " + cardColour[computerHand[i]] + "  " + "Jack");
+                        break;
+                    case 12:
+                        Console.WriteLine((i + 1) + ") " + cardColour[computerHand[i]] + "  " + "Queen");
+                        break;
+                    case 13:
+                        Console.WriteLine((i + 1) + ") " + cardColour[computerHand[i]] + "  " + "King");
+                        break;
+
+                    default:
+                        Console.WriteLine((i + 1) + ") " + cardColour[computerHand[i]] + "  " + cardValue[computerHand[i]]);
+                        continue;
+                }
+
+
+            }
+
+
+
             Console.WriteLine("");
             Console.WriteLine("");
             if (cp == 1)
@@ -121,7 +208,17 @@ namespace goFish
                 Console.WriteLine("Ask the computer for a card");
             }
 
+            if (cp == 2)
+            {
+                Console.WriteLine("It's the computers turn");
+            }
 
+            if (work == 1)
+            {
+                Console.WriteLine("The computer had that card, it's your turn again.");
+            }
+
+            //Thread.Sleep(5000);
 
 
         }
