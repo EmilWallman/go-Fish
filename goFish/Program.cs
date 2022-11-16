@@ -18,7 +18,7 @@ namespace goFish
             bool start = startYN();
 
             //Start if loop (the whole game)
-            if (start == true)
+            if (start)
             {
                 //making a deck of cards
                 List<int> cardValue = CV();
@@ -30,7 +30,18 @@ namespace goFish
                 List<int> computerHand = new List<int> { };
 
                 //For game
+                int cardCount = 0;
 
+                int num1 = 0;
+                int num2 = 0;
+                int num3 = 0;
+
+                int compNum1 = 0;
+                int compNum2 = 0;
+
+
+                bool computerAgain = false;
+                bool computerTry = true;
                 //if the question was succesfull or nah
                 int work = 0;
 
@@ -48,7 +59,7 @@ namespace goFish
                 }
                 bool game = true;
 
-                while (game == true)
+                while (game)
                 {
                     
 
@@ -82,6 +93,11 @@ namespace goFish
                                 j++;
                                 if (j == computerHand.Count)
                                 {
+                                    Console.WriteLine("The computer did not have the card you asked for");
+
+                                    hand = dealer(cardNum, hand);
+                                    cardNum.Remove(hand[hand.Count - 1]);
+                                    ui(hand, computerHand, cardNum, cardValue, cardColour, cp, work);
                                     i = computerHand.Count;
                                     cp = 2;
                                 }
@@ -89,43 +105,95 @@ namespace goFish
                         }
 
                     }
-
+                    //Add try catch methods for every input
+                     // Den num1 2 o 3 från value!!!!! LÖS DE FÖRFAN JÄVLA IDIOT EMIL!!!!!!
                     if (cp == 2)
                     {
                         //Find if there is any douplicates of cards
-
-
+                        
                         // This is cursed
-                        for (int i = 0; i < computerHand.Count; i++)
+                        while (computerTry)
                         {
-                            for(int k = 0; k < computerHand.Count; k++)
+                            for (num1 = 0; num1 < computerHand.Count; num1++)
                             {
-                                
-                                //See if there are tow cards
-                                if (cardValue[computerHand[i]] == cardValue[computerHand[k]])
+                                for (num2 = 0; num2 < computerHand.Count; num2++)
                                 {
-                                    Console.WriteLine(cardValue[computerHand[i]] + "im");
-                                    Console.WriteLine(cardValue[computerHand[k]] + "km");
-                                    Console.WriteLine(i + "i");
-                                    Console.WriteLine(k + "k");
-
-                                    /*
-                                    for (int m = 0; m < computerHand.Count; m++)
+                                    if (num2 != num1)
                                     {
-                                        //three cards
-                                        if (cardValue[computerHand[i]] == cardValue[computerHand[m]])
+                                        //See if there are two cards
+                                        if (cardValue[computerHand[num1]] == cardValue[computerHand[num2]])
                                         {
-                                            Console.WriteLine(cardValue[i]);
-                                            Console.WriteLine(cardValue[k]);
-                                            Console.WriteLine(cardValue[m]);
+                                            compNum1 = num1;
+                                            compNum2 = num2;
+                                            cardCount = 2;
+                                            computerTry = false;
                                         }
-                                    }*/
+                                        else
+                                        {
+                                            if (num2 == computerHand.Count)
+                                            {
+                                                cardCount = 1;
+                                                computerTry = false;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+                        
+                        if (cardCount == 2)
+                        {
+                            Console.WriteLine("The computer asks for a " + compNum1 );
+                            int j = 0;
+                            for (int i = 0; i < hand.Count; i++)
+                            {
+                                if(cardValue[computerHand[compNum1 - 1]] == cardValue[hand[i]])
+                                {
+                                    //Put this into the UI
+                                    Console.WriteLine("The computer takes all your " + compNum1);
 
 
-                        //any tripplets?
+                                    //Take from the players hand now
+                                    int taker = hand[i];
+                                    computerHand.Add(taker);
+                                    hand.RemoveAt(i);
+
+                                    computerAgain = true;
+                                }
+                                else
+                                {
+                                    j++;
+                                    if (j == hand.Count)
+                                    {
+                                        computerAgain = false;
+                                        cp = 1;
+                                        i = hand.Count;
+                                        
+                                    }
+                                }
+                            }
+
+                            if (computerAgain)
+                            {
+                                computerTry = true;
+                                cardCount = 0;
+                                num1 = 0;
+                                num2 = 0;
+                                num3 = 0;
+                            }
+
+                            //Stop with turning computerTry to true? and if you get some then put cp to 2 and if not then cp = 1
+                        }
+
+                        else
+                        {
+                            //randomise one number
+                        }
+                        ui(hand, computerHand, cardNum, cardValue, cardColour, cp, work);
+                        Console.WriteLine(cardCount);
+
+
+                        
                     }
 
 
@@ -255,7 +323,7 @@ namespace goFish
             int y = 0;
             bool go = true;
 
-            while (go == true)
+            while (go)
             {
                 if (x < 4)
                 {
@@ -289,7 +357,7 @@ namespace goFish
             int y = 0;
             bool go = true;
 
-            while (go == true)
+            while (go)
             {
                 if (x < 4)
                 {
@@ -341,6 +409,50 @@ namespace goFish
 
             return hand;
         }
+
+
+        //Test for getting three cards Computer
+        /*
+            for (num3 = 0; num3 < computerHand.Count; num3++)
+                                            {
+                                                //three cards
+                                                if (num3 != num2 && num3 != num1 && num1 != num2)
+                                                {
+                                                    if (cardValue[computerHand[num3]] == cardValue[computerHand[num3]])
+                                                    {
+                                                        Console.WriteLine(cardValue[num1]);
+                                                        Console.WriteLine(cardValue[num2]);
+                                                        Console.WriteLine(cardValue[num3]);
+                                                        cardCount = 3;
+                                                        computerTry = false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (num3 == computerHand.Count)
+                                                    {
+                                                        if (num1 == num2)
+                                                        {
+                                                            cardCount = 2;
+                                                            computerTry = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            cardCount = 1;
+                                                            computerTry = false;
+                                                        }
+
+                                                    }
+                                                }
+                                                if (num3 == computerHand.Count)
+                                                {
+                                                    computerTry = false;
+                                                }
+
+
+                                            } 
+        */
+
 
     }
 }
